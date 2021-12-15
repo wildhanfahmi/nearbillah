@@ -10,13 +10,19 @@ import '../css/admin.css'
 import {
     WiMoonAltThirdQuarter, WiMoonAltFirstQuarter, 
 } from 'react-icons/wi'
+import {
+    BsThreeDotsVertical
+} from 'react-icons/bs'
+import Dashboard from './Dashboard'
 
 const AdminLayout = () => {
 
-    const { Header, Sider, Content } = Layout
+    const { Header, Sider } = Layout
     const [ stateCollaps, toggleCollaps ] = useState({collapsed: true})
     const [stateTheme, toggleTheme] = useState({theme: 'light', toggle: true})
     const [stateMode, toggleMode] = useState({mode: 'inline', toggle: true})
+
+    
 
     const changeTheme = value => {
         value ? toggleTheme({theme: 'light', toggle: value}) : toggleTheme({theme: 'dark', toggle: value})
@@ -67,14 +73,9 @@ const AdminLayout = () => {
                         )} */}
                         
                 {/* <Button block={false} shape='circle' type='default' onClick={()=>changeTheme(!stateTheme.toggle)} icon={stateTheme.toggle ? <WiMoonAltThirdQuarter/> : <WiMoonAltFirstQuarter/>}></Button> */}
-            </Tooltip>
+                    </Tooltip>
                 </Header>
-                <Content
-                    className='site-layout-background'
-                    style={{margin: '24px 16px', padding: 24, minHeight: '80vh'}}
-                >
-                    Content
-                </Content>
+                <Dashboard />
             </Layout>
         </Layout>
     )
