@@ -1,53 +1,29 @@
 import React from 'react'
 import {
-    Layout, Menu, Button, Switch, Tooltip
+    Layout, Menu, Button, Switch, Tooltip, Breadcrumb
 } from 'antd'
 import { useState } from 'react'
 import {
-    DashboardOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbFilled
+    DashboardOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbFilled, MailOutlined
 } from '@ant-design/icons'
 import '../css/admin.css'
-import {
-    WiMoonAltThirdQuarter, WiMoonAltFirstQuarter, 
-} from 'react-icons/wi'
-import {
-    BsThreeDotsVertical
-} from 'react-icons/bs'
+import Sider from './Sider'
 import Dashboard from './Dashboard'
+import { Outlet, Link } from 'react-router-dom'
 
-const AdminLayout = () => {
 
-    const { Header, Sider } = Layout
-    const [ stateCollaps, toggleCollaps ] = useState({collapsed: true})
-    const [stateTheme, toggleTheme] = useState({theme: 'light', toggle: true})
-    const [stateMode, toggleMode] = useState({mode: 'inline', toggle: true})
+const AdminLayout = (props) => {
 
+    const { Header, Content } = Layout
     
-
-    const changeTheme = value => {
-        value ? toggleTheme({theme: 'light', toggle: value}) : toggleTheme({theme: 'dark', toggle: value})
-    }
+    const [ stateCollaps, toggleCollaps ] = useState({collapsed: false})
+    
 
     return (
         <Layout>
-            <Sider trigger={null} collapsible collapsed={stateCollaps.collapsed} theme={stateTheme.theme} >
-            
-            {/* <Switch onChange={()=>changeTheme(!stateTheme.toggle)}>
-                
-            </Switch> */}
-            {/* {stateTheme.toggle ? <WiMoonAltThirdQuarter fontSize='18px' cursor='pointer' alignmentBaseline="base" onClick={()=>changeTheme(!stateTheme.toggle)} color='black'/> : <WiMoonAltFirstQuarter onClick={()=>changeTheme(!stateTheme.toggle)} color='black'/>} */}
-            <Tooltip title={stateTheme.theme}>
-            {
-                stateTheme.toggle ? <Button block={true} type='text' onClick={()=>changeTheme(!stateTheme.toggle)} icon={<WiMoonAltThirdQuarter color='black'/>}></Button> : <Button block={true} type='text' onClick={()=>changeTheme(!stateTheme.toggle)} icon={<WiMoonAltThirdQuarter color='white'/>}></Button>
-            }
-            </Tooltip>
-            <div className='logo'></div>
-            <Menu theme={stateTheme.theme} mode={stateMode.mode} defaultSelectedKeys={['1']}>
-                <Menu.Item key='1' icon={<DashboardOutlined />}>
-                    Dashboard
-                </Menu.Item>
-            </Menu>
-            </Sider>
+            <Sider
+                collapsed={stateCollaps.collapsed}
+            />
             <Layout className='site-layout'>
                 <Header className='site-layout-background' style={{padding: 0}}>
 
@@ -61,7 +37,7 @@ const AdminLayout = () => {
                             }
                         )
                     }
-                    <Tooltip title={stateTheme.theme}>
+                    {/* <Tooltip title={stateTheme.theme}> */}
                         {/* {React.createElement(
                             stateTheme.toggle ? BulbFilled: BulbFilled,
                             {
@@ -73,9 +49,13 @@ const AdminLayout = () => {
                         )} */}
                         
                 {/* <Button block={false} shape='circle' type='default' onClick={()=>changeTheme(!stateTheme.toggle)} icon={stateTheme.toggle ? <WiMoonAltThirdQuarter/> : <WiMoonAltFirstQuarter/>}></Button> */}
-                    </Tooltip>
+                    {/* </Tooltip> */}
                 </Header>
-                <Dashboard />
+                {/* <Content style={{margin: '24px 16px 5px 24px', padding: 0}}>
+                
+                </Content> */}
+                <Outlet />
+                {/* {loadContent} */}
             </Layout>
         </Layout>
     )
